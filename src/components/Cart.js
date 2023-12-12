@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Landing from "./components/Landing";
+import Landing from "./Landing";
 
 export default function Cart() {
   return (
