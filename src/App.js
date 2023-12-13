@@ -10,18 +10,17 @@ import Navbar from "./components/Navbar";
 function App() {
   return (
     <div>
-      <Header>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Landing />} />
+      </Routes>
+      <Navbar>
         <Routes>
-          <Route path="/" element={<Landing />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/tickets" element={<Tickets />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
-        <Navbar>
-          <Routes>
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/tickets" element={<Tickets />} />
-            <Route path="/cart" element={<Cart />} />
-          </Routes>
-        </Navbar>
-      </Header>
+      </Navbar>
     </div>
   );
 }
