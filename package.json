@@ -12,10 +12,12 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "dev": "concurrently --kill-others \"npm start\" \"npm run json-server\"",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "json-server": "json-server --watch json-server/db.json --port 4000"
   },
   "eslintConfig": {
     "extends": [
@@ -34,5 +36,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "json-server": "^0.17.4"
   }
 }
