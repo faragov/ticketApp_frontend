@@ -8,7 +8,8 @@
     "@testing-library/user-event": "^13.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
+    "react-router-dom": "^6.20.1",
+    "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -17,7 +18,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "json-server": "json-server --watch json-server/db.json --port 4000"
+    "json-server": "json-server --watch json-server/db.json --port 4000",
+    "lint": "eslint ./src",
+    "lint-fix": "eslint --fix ./src",
+    "prettier": "prettier --check ./src",
+    "prettier-write": "prettier --write ./src"
   },
   "eslintConfig": {
     "extends": [
@@ -39,6 +44,15 @@
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
-    "json-server": "^0.17.4"
+    "json-server": "^0.17.4",
+    "eslint": "^8.55.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^3.1.1"
   }
 }
