@@ -20,9 +20,9 @@
     "eject": "react-scripts eject",
     "json-server": "json-server --watch json-server/db.json --port 4000",
     "lint": "eslint ./src",
-    "lint-fix": "eslint --fix ./src",
-    "prettier": "prettier --check ./src",
-    "prettier-write": "prettier --write ./src"
+    "lint:fix": "eslint --fix ./src",
+    "format": "prettier --check ./src",
+    "format:fix": "prettier --write ./src"
   },
   "eslintConfig": {
     "extends": [
