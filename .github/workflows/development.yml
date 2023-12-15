@@ -9,8 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Clear npm cache
+        run: npm cache clean --force
       - name: Install packages
-        run: npm ci
+        run: npm install
       - name: Prettier
         run: npm run format
       - name: Lint
