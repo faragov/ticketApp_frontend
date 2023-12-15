@@ -1,3 +1,3 @@
 export default function Tickets() {
-  return <div />;
+  return <h1>Tickets component</h1>;
 }
