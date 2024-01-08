@@ -5,6 +5,9 @@ export default function Navbar() {
     <div className="navbar">
       <ul>
         <li>
+          <Link to="/shop">Shop</Link>
+        </li>
+        <li>
           <Link to="/profile">Profile</Link>
         </li>
         <li>

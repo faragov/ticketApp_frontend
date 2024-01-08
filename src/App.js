@@ -5,6 +5,7 @@ import Profile from "./components/Profile";
 import Tickets from "./components/Tickets";
 import Header from "./components/Header";
 import Landing from "./components/Landing";
+import Shop from "./components/Shop";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/tickets" element={<Tickets />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/shop" element={<Shop />} />
       </Routes>
     </div>
   );
