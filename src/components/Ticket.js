@@ -1,13 +1,13 @@
-// eslint-disable-next-line react/prop-types
 export default function Ticket({ type, usability, price }) {
   return (
-    <ul className="shop-list">
+    <ul className="ticket-description">
       <li>
         <p>{type}</p>
-        <p>You can use this ticket for {usability} hour</p>
+        <p>{usability} </p>
         <p>{price} Ft</p>
-        <p>{usability} h</p>
+        <p>{usability}</p>
       </li>
+      <button type="button">Add to cart</button>
     </ul>
   );
 }
