@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 export default function Register() {
   const [user, setUser] = useState({
@@ -16,24 +17,30 @@ export default function Register() {
     });
   }
 
-  // Email is already taken logic
+  // + Email logic
+
+  function validate() {
+    if (!user.name || !user.email || !user.password) {
+      alert("Name, email, and password are required.");
+      return false;
+    } if (user.password.length < 8) {
+      alert("Password must be at least 8 characters.");
+      return false;
+    }
+    return true;
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (validate()) {
+      alert("Submitting!");
+    }
+  }
 
   return (
     <div className="form">
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          if (!user.name || !user.email || !user.password) {
-            alert("Name, email, and password are required.");
-          } else if (user.password.length < 8) {
-            alert("Password must be at least 8 characters.");
-          } else {
-            alert("Submitting!");
-          }
-        }}
-      >
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="name">
           <FontAwesomeIcon icon={faUser} />
           <input
             id="name"
@@ -42,8 +49,7 @@ export default function Register() {
             onChange={handleChange}
           />
         </label>
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label>
+        <label htmlFor="email">
           <FontAwesomeIcon icon={faEnvelope} />
           <input
             id="email"
@@ -52,8 +58,7 @@ export default function Register() {
             onChange={handleChange}
           />
         </label>
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label>
+        <label htmlFor="password">
           <FontAwesomeIcon icon={faLock} />
           <input
             id="password"
@@ -66,7 +71,10 @@ export default function Register() {
       </form>
       {/* Need to change to Login */}
       <p>
-        Are you a member? <a href="./Landing">Log in</a>
+        Are you a member?
+      </p>
+      <p>
+        <Link to="./Landing">Log in</Link>
       </p>
     </div>
   );
