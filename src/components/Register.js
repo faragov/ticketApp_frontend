@@ -23,7 +23,8 @@ export default function Register() {
     if (!user.name || !user.email || !user.password) {
       alert("Name, email, and password are required.");
       return false;
-    } if (user.password.length < 8) {
+    }
+    if (user.password.length < 8) {
       alert("Password must be at least 8 characters.");
       return false;
     }
@@ -70,9 +71,7 @@ export default function Register() {
         <button type="submit">Sign Up</button>
       </form>
       {/* Need to change to Login */}
-      <p>
-        Are you a member?
-      </p>
+      <p>Are you a member?</p>
       <p>
         <Link to="./Landing">Log in</Link>
       </p>
