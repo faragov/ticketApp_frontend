@@ -39,7 +39,8 @@ export default function Shop() {
 
   const ticketType = ticket.map((tickets) => (
     <Ticket
-      type={tickets.description}
+      type={tickets.name}
+      description={tickets.description}
       usability={tickets.duration}
       price={tickets.price}
     />
