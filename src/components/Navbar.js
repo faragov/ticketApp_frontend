@@ -13,6 +13,7 @@ export default function Navbar() {
         <li>
           <Link to="/cart">Cart</Link>
         </li>
+          <Link to="/login">Login</Link>
       </ul>
     </div>
   );
