@@ -42,7 +42,7 @@ export default function Register() {
     <div className="form">
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">
-          <FontAwesomeIcon icon={faUser} />
+          Name <FontAwesomeIcon icon={faUser} />
           <input
             id="name"
             name="name"
@@ -51,7 +51,7 @@ export default function Register() {
           />
         </label>
         <label htmlFor="email">
-          <FontAwesomeIcon icon={faEnvelope} />
+          Email <FontAwesomeIcon icon={faEnvelope} />
           <input
             id="email"
             name="email"
@@ -60,7 +60,7 @@ export default function Register() {
           />
         </label>
         <label htmlFor="password">
-          <FontAwesomeIcon icon={faLock} />
+          Password <FontAwesomeIcon icon={faLock} />
           <input
             id="password"
             name="password"
