@@ -31,9 +31,8 @@ export default function Login() {
   return (
     <div className="form">
       <form onSubmit={handleSubmit}>
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label htmlFor="email">Email</label>
-        <FontAwesomeIcon icon={faEnvelope} />
+        <label htmlFor="email">
+        Email <FontAwesomeIcon icon={faEnvelope} />
         <input
           id="email"
           name="email"
@@ -41,9 +40,10 @@ export default function Login() {
           value={user.email}
           onChange={handleChange}
         />
+        </label>
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label htmlFor="password">Password</label>
-        <FontAwesomeIcon icon={faLock} />
+        <label htmlFor="password">
+        Password <FontAwesomeIcon icon={faLock} />
         <input
           id="password"
           name="password"
@@ -51,6 +51,7 @@ export default function Login() {
           value={user.password}
           onChange={handleChange}
         />
+        </label>
         <button type="submit">Login</button>
       </form>
       <p>
