@@ -32,25 +32,25 @@ export default function Login() {
     <div className="form">
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">
-        Email <FontAwesomeIcon icon={faEnvelope} />
-        <input
-          id="email"
-          name="email"
-          type="text"
-          value={user.email}
-          onChange={handleChange}
-        />
+          Email <FontAwesomeIcon icon={faEnvelope} />
+          <input
+            id="email"
+            name="email"
+            type="text"
+            value={user.email}
+            onChange={handleChange}
+          />
         </label>
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <label htmlFor="password">
-        Password <FontAwesomeIcon icon={faLock} />
-        <input
-          id="password"
-          name="password"
-          type="text"
-          value={user.password}
-          onChange={handleChange}
-        />
+          Password <FontAwesomeIcon icon={faLock} />
+          <input
+            id="password"
+            name="password"
+            type="text"
+            value={user.password}
+            onChange={handleChange}
+          />
         </label>
         <button type="submit">Login</button>
       </form>

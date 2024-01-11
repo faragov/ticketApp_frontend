@@ -6,7 +6,7 @@ import Tickets from "./components/Tickets";
 import Header from "./components/Header";
 import Landing from "./components/Landing";
 import Register from "./components/Register";
-import Login from "./components/Login"
+import Login from "./components/Login";
 
 function App() {
   return (
