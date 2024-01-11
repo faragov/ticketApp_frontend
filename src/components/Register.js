@@ -17,6 +17,8 @@ export default function Register() {
     });
   }
 
+  const [showPassword, setShowPassword] = useState(false);
+
   // + Email logic
 
   function validate() {
@@ -63,9 +65,17 @@ export default function Register() {
           Password <FontAwesomeIcon icon={faLock} />
           <input
             id="password"
+            type={showPassword ? "text" : "password"}
             name="password"
             value={user.password}
             onChange={handleChange}
+          />
+          <label htmlFor="check">Show Password</label>
+          <input
+            id="check"
+            type="checkbox"
+            value={showPassword}
+            onChange={() => setShowPassword((prev) => !prev)}
           />
         </label>
         <button type="submit">Sign Up</button>
