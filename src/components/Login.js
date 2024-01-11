@@ -55,7 +55,7 @@ export default function Login() {
         <button type="submit">Login</button>
       </form>
       <p>
-        <Link to="./Landing">
+        <Link to="../register">
           <p>{`If you don't have an account, click here to register.`}</p>
         </Link>
       </p>
