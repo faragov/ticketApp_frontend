@@ -5,6 +5,7 @@ import Profile from "./components/Profile";
 import Tickets from "./components/Tickets";
 import Header from "./components/Header";
 import Landing from "./components/Landing";
+import Login from "./components/Login";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/tickets" element={<Tickets />} />
         <Route path="/cart" element={<Cart />} />
