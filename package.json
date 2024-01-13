@@ -10,7 +10,8 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.1",
     "react-scripts": "^5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "wretch": "^2.8.0"
   },
   "scripts": {
     "dev": "concurrently --kill-others \"npm start\" \"npm run json-server\"",
@@ -18,7 +19,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "json-server": "json-server --watch json-server/db.json --port 4000",
+    "json-server": "json-server --watch ./json-server/db.json --port 4000",
     "lint": "eslint ./src",
     "lint:fix": "eslint --fix ./src",
     "format": "prettier --check ./src",
