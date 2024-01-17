@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import wretch from "wretch";
 
 export default function Register() {
   const [user, setUser] = useState({
@@ -31,12 +32,17 @@ export default function Register() {
     return true;
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  const handleSubmit = (e) => {
     if (validate()) {
-      alert("Submitting!");
+      e.preventDefault();
+      try {
+        wretch("http://localhost:4000/users").post(user);
+        alert("Success!");
+      } catch (err) {
+        alert(err);
+      }
     }
-  }
+  };
 
   return (
     <div className="form">
