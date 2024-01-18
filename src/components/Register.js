@@ -36,7 +36,12 @@ export default function Register() {
     if (validate()) {
       e.preventDefault();
       try {
-        wretch("http://localhost:4000/users").post(user);
+        wretch("http://localhost:4000/users").post(
+          user.id,
+          user.name,
+          user.email,
+          user.password,
+        );
         alert("Success!");
       } catch (err) {
         alert(err);
