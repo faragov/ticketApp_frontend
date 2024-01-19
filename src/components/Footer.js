@@ -1,18 +1,16 @@
 import { Link } from "react-router-dom";
-import facebook from "../facebook-svgrepo-com.svg";
-import twitter from "../twitter-svgrepo-com.svg";
-import linkedin from "../linkedin-svgrepo-com.svg";
+import facebookIcon from "../facebook-svgrepo-com.svg";
+import twitterIcon from "../twitter-svgrepo-com.svg";
+import linkedinIcon from "../linkedin-svgrepo-com.svg";
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <div className="footer">
+    <footer className="footer">
+        <p>{`©${year} FoxTicket`}</p>
       <div className="navbar">
         <ul>
-          <li>
-            <footer>{`©${year} FoxTicket`}</footer>;
-          </li>
           <li>
             <Link to="/shop">Terms</Link>
           </li>
@@ -21,21 +19,21 @@ export default function Footer() {
           </li>
           <li>
             <Link to="www.facebook.com">
-              <img src={facebook} alt="Facebook" width="30vw" />
+              <img src={facebookIcon} alt="Facebook" width="30vw" />
             </Link>
           </li>
           <li>
             <Link to="www.twitter.com">
-              <img src={twitter} alt="Twitter" width="30vw" />
+              <img src={twitterIcon} alt="Twitter" width="30vw" />
             </Link>
           </li>
           <li>
             <Link to="www.linkedin.com">
-              <img src={linkedin} alt="Linkedin" width="30vw" />
+              <img src={linkedinIcon} alt="Linkedin" width="30vw" />
             </Link>
           </li>
         </ul>
       </div>
-    </div>
+    </footer>
   );
 }
