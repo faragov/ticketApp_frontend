@@ -6,6 +6,8 @@ import Header from "./components/Header";
 import Landing from "./components/Landing";
 import Shop from "./components/Shop";
 import Footer from "./components/Footer";
+import PageNotFound from "./components/PageNotFound";
+
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />
     </div>
