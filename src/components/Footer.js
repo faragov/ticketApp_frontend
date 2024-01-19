@@ -8,7 +8,7 @@ export default function Footer() {
 
   return (
     <footer className="footer">
-        <p>{`©${year} FoxTicket`}</p>
+      <p>{`©${year} FoxTicket`}</p>
       <div className="navbar">
         <ul>
           <li>
