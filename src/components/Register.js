@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 
 // eslint-disable-next-line
 const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-const isConatinsUppercase = /(?=.*[A-Z])/;
+const isContainsUppercase = /(?=.*[A-Z])/;
 // eslint-disable-next-line no-useless-escape
-const isConatinsSpecialChar = /(?=(?:.*[.,:;\-\$]){2})/;
+const isContainsSpecialChar = /(?=(?:.*[.,:;\-\$]){2})/;
 const isValidLength = /^.{8,}$/;
 
 export default function Register() {
@@ -20,9 +20,7 @@ export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [checkValidEmail, setCheckValidEmail] = useState(false);
   const [checkValidPassword, setCheckValidPassword] = useState(false);
-  const [emailMessage, setEmailMessage] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
-  const [emailMessageColor, setEmailMessageColor] = useState("red");
   const [passwordMessageColor, setPasswordMessageColor] = useState("red");
 
   function handleChange(e) {
@@ -32,26 +30,22 @@ export default function Register() {
     });
   }
 
-  const handleCheckEmail = (event) => {
+  function handleCheckEmail(event) {
     const email = event.target.value;
 
     if (regexEmail.test(email)) {
       setCheckValidEmail(true);
-      setEmailMessage("Email accepted.");
-      setEmailMessageColor("green");
     } else {
       setCheckValidEmail(false);
-      setEmailMessage("Email must be in good fomat.");
-      setEmailMessageColor("red");
     }
-  };
+  }
 
-  const handleCheckPassword = (event) => {
+  function handleCheckPassword(event) {
     const password = event.target.value;
 
     if (
-      isConatinsUppercase.test(password) &&
-      isConatinsSpecialChar.test(password) &&
+      isContainsUppercase.test(password) &&
+      isContainsSpecialChar.test(password) &&
       isValidLength.test(password)
     ) {
       setCheckValidPassword(true);
@@ -64,7 +58,7 @@ export default function Register() {
       );
       setPasswordMessageColor("red");
     }
-  };
+  }
 
   // + Email logic connect to backend
 
@@ -85,6 +79,14 @@ export default function Register() {
     if (validate()) {
       alert("Submitting!");
     }
+  }
+
+  function showEmailMessage() {
+    if (checkValidEmail) {
+      return <p className="valid-text">Email accepted.</p>;
+    }
+
+    return <p className="invalid-text">Email must be in good fomat.</p>;
   }
 
   return (
@@ -140,7 +142,7 @@ export default function Register() {
         <button type="submit" onClick={handleSubmit}>
           Sign Up
         </button>
-        <p style={{ color: emailMessageColor }}>{emailMessage}</p>
+        {user.email && showEmailMessage()}
         <p style={{ color: passwordMessageColor }}>{passwordMessage}</p>
       </form>
       {/* Need to change to Login */}
