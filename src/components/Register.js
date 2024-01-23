@@ -20,8 +20,6 @@ export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [checkValidEmail, setCheckValidEmail] = useState(false);
   const [checkValidPassword, setCheckValidPassword] = useState(false);
-  const [passwordMessage, setPasswordMessage] = useState("");
-  const [passwordMessageColor, setPasswordMessageColor] = useState("red");
 
   function handleChange(e) {
     setUser({
@@ -49,14 +47,8 @@ export default function Register() {
       isValidLength.test(password)
     ) {
       setCheckValidPassword(true);
-      setPasswordMessage("Password accepted.");
-      setPasswordMessageColor("green");
     } else {
       setCheckValidPassword(false);
-      setPasswordMessage(
-        "Password must be at least 8 Characters Long, contains one Uppercase,and two Special Characters.",
-      );
-      setPasswordMessageColor("red");
     }
   }
 
@@ -87,6 +79,19 @@ export default function Register() {
     }
 
     return <p className="invalid-text">Email must be in good fomat.</p>;
+  }
+
+  function showPasswordMessage() {
+    if (checkValidPassword) {
+      return <p className="valid-text">Password accepted.</p>;
+    }
+
+    return (
+      <p className="invalid-text">
+        Password must be at least 8 Characters Long, contains one Uppercase,and
+        two Special Characters.
+      </p>
+    );
   }
 
   return (
@@ -143,7 +148,7 @@ export default function Register() {
           Sign Up
         </button>
         {user.email && showEmailMessage()}
-        <p style={{ color: passwordMessageColor }}>{passwordMessage}</p>
+        {user.password && showPasswordMessage()}
       </form>
       {/* Need to change to Login */}
       <p>Are you a member?</p>
