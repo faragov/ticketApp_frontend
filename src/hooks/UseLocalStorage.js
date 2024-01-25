@@ -7,11 +7,9 @@ export const useLocalStorage = (keyName, defaultValue) => {
       const value = window.localStorage.getItem(keyName);
       if (value) {
         return JSON.parse(value);
-        // eslint-disable-next-line no-else-return
-      } else {
-        window.localStorage.setItem(keyName, JSON.stringify(defaultValue));
-        return defaultValue;
       }
+      window.localStorage.setItem(keyName, JSON.stringify(defaultValue));
+      return defaultValue;
     } catch (err) {
       return defaultValue;
     }
