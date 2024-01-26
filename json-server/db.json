@@ -32,5 +32,19 @@
       "description": "You can use this pass for 15 days",
       "type": "pass"
     }
+  ],
+  "users": [
+    {
+      "name": "Username",
+      "email": "Emaila",
+      "password": "Password",
+      "id": 1
+    },
+    {
+      "name": "Username",
+      "email": "Emaila",
+      "password": "Password",
+      "id": 2
+    }
   ]
 }
