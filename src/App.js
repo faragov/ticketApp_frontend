@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Cart from "./components/Cart";
+import Login from "./components/Login";
 import Profile from "./components/Profile";
 import Header from "./components/Header";
 import Landing from "./components/Landing";
@@ -9,6 +10,7 @@ import Footer from "./components/Footer";
 import PageNotFound from "./components/PageNotFound";
 import Register from "./components/Register";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import Logout from "./components/Logout";
 
 function App() {
   return (
@@ -21,6 +23,15 @@ function App() {
           element={
             <ProtectedRoute>
               <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Logout />
             </ProtectedRoute>
           }
         />
