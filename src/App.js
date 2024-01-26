@@ -8,12 +8,10 @@ import Landing from "./components/Landing";
 import Shop from "./components/Shop";
 import Footer from "./components/Footer";
 import PageNotFound from "./components/PageNotFound";
-import useAuth from "./hooks/useAuth";
 import Register from "./components/Register";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
 function App() {
-  const authService = useAuth();
 
   return (
     <div>

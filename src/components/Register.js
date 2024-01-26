@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-// eslint-disable-next-line
-import wretch from "wretch";
+import register from "../services/AuthService" 
 
 // eslint-disable-next-line
 const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -72,12 +71,8 @@ export default function Register() {
     if (validate()) {
       e.preventDefault();
       try {
-        wretch("http://localhost:4000/users").post(
-          user.id,
-          user.name,
-          user.email,
-          user.password,
-        );
+        register(user)
+        .json(json => console.log(json));
         alert("Success!");
       } catch (err) {
         alert(err);

@@ -1,4 +1,5 @@
 import wretch from "wretch";
+
 const basePath = process.env.REACT_APP_API_BASE_URL
 
 const api = {
@@ -7,4 +8,4 @@ const api = {
     wretch(`${basePath}/${endpoint}`).post(body)
 };
 
-export { api };
+export default{ api };

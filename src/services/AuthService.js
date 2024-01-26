@@ -1,13 +1,12 @@
-import {api} from "../adapters/api";
-const resource = "/auth";
+import api from "../adapters/api";
 
-class AuthService {
-  login(user) {
+const resource = "/auth"
+
+ function login(user) {
     return api.post(`${resource}/login`,user) 
   }
 
-  register(user) {
+  function register(user) {
     return api.post(`${resource}/register`,user)
   }
-}
-export default new AuthService();
+export default { login, register };
