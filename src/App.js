@@ -10,7 +10,6 @@ import Footer from "./components/Footer";
 import PageNotFound from "./components/PageNotFound";
 import Register from "./components/Register";
 import { ProtectedRoute } from "./components/ProtectedRoute";
-import Logout from "./components/Logout";
 
 function App() {
   return (
@@ -27,14 +26,6 @@ function App() {
           }
         />
         <Route path="/login" element={<Login />} />
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Logout />
-            </ProtectedRoute>
-          }
-        />
         <Route
           path="/cart"
           element={
