@@ -7,11 +7,16 @@ import Landing from "./components/Landing";
 import Shop from "./components/Shop";
 import Footer from "./components/Footer";
 import PageNotFound from "./components/PageNotFound";
+import useAuth from "./hooks/useAuth";
 
 function App() {
+  const authService = useAuth();
+
   return (
     <div>
       <Header />
+      <p>{process.env.REACT_APP_NAME}</p>
+      <p>{process.env.REACT_APP_API_BASE_URL}</p>
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/profile" element={<Profile />} />
