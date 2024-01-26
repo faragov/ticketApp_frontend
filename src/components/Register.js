@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+// eslint-disable-next-line
+import wretch from "wretch";
 
 // eslint-disable-next-line
 const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -66,12 +68,22 @@ export default function Register() {
     return true;
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  const handleSubmit = (e) => {
     if (validate()) {
-      alert("Submitting!");
+      e.preventDefault();
+      try {
+        wretch("http://localhost:4000/users").post(
+          user.id,
+          user.name,
+          user.email,
+          user.password,
+        );
+        alert("Success!");
+      } catch (err) {
+        alert(err);
+      }
     }
-  }
+  };
 
   function showEmailMessage() {
     if (checkValidEmail) {

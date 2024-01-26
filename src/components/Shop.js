@@ -1,4 +1,4 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
+// eslint-disable-next-line
 import wretch from "wretch";
 import { useState, useEffect } from "react";
 import Ticket from "./Ticket";
