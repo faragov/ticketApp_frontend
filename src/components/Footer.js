@@ -12,25 +12,33 @@ export default function Footer() {
       <div className="navbar">
         <ul>
           <li>
-            <Link to="/shop">Terms</Link>
+            <Link to="/terms">Terms</Link>
           </li>
           <li>
-            <Link to="/profile">Contact</Link>
+            <Link to="/contact">Contact</Link>
           </li>
           <li>
-            <Link to="www.facebook.com">
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="http://facebook.com"
+            >
               <img src={facebookIcon} alt="Facebook" width="30vw" />
-            </Link>
+            </a>
           </li>
           <li>
-            <Link to="www.twitter.com">
+            <a target="_blank" rel="noopener noreferrer" href="http://x.com">
               <img src={twitterIcon} alt="Twitter" width="30vw" />
-            </Link>
+            </a>
           </li>
           <li>
-            <Link to="www.linkedin.com">
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="http://linkedin.com"
+            >
               <img src={linkedinIcon} alt="Linkedin" width="30vw" />
-            </Link>
+            </a>
           </li>
         </ul>
       </div>

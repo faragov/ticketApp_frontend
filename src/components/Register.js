@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock, faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
-import register from "../services/AuthService" 
+import { Link, useNavigate } from "react-router-dom";
+import { registerUser } from "../services/AuthService";
 
 // eslint-disable-next-line
 const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -21,6 +21,9 @@ export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [checkValidEmail, setCheckValidEmail] = useState(false);
   const [checkValidPassword, setCheckValidPassword] = useState(false);
+  const [statusMessage, setStatusMessage] = useState("");
+
+  const navigate = useNavigate();
 
   function handleChange(e) {
     setUser({
@@ -53,15 +56,11 @@ export default function Register() {
     }
   }
 
-  // + Email logic connect to backend
-
   function validate() {
     if (!user.name || !user.email || !user.password) {
-      alert("Name, email, and password are required.");
       return false;
     }
     if (!checkValidEmail || !checkValidPassword) {
-      alert("Not correct email or password.");
       return false;
     }
     return true;
@@ -70,13 +69,12 @@ export default function Register() {
   const handleSubmit = (e) => {
     if (validate()) {
       e.preventDefault();
-      try {
-        register(user)
-        .json(json => console.log(json));
-        alert("Success!");
-      } catch (err) {
-        alert(err);
-      }
+      registerUser(user).json((json) => {
+        setStatusMessage(json.success);
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
+      });
     }
   };
 
@@ -154,13 +152,15 @@ export default function Register() {
         <button type="submit" onClick={handleSubmit}>
           Sign Up
         </button>
+        <p>{statusMessage}</p>
         {user.email && showEmailMessage()}
         {user.password && showPasswordMessage()}
       </form>
-      {/* Need to change to Login */}
       <p>Are you a member?</p>
       <p>
-        <Link to="./Landing">Log in</Link>
+        <Link to="/login" className="link">
+          Log in
+        </Link>
       </p>
     </div>
   );

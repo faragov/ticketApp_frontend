@@ -1,12 +1,12 @@
 import api from "../adapters/api";
 
-const resource = "/auth"
+const resource = "auth";
 
- function login(user) {
-    return api.post(`${resource}/login`,user) 
-  }
+function loginUser(user) {
+  return api.post(`${resource}/login`, user);
+}
 
-  function register(user) {
-    return api.post(`${resource}/register`,user)
-  }
-export default { login, register };
+function registerUser(user) {
+  return api.post(`${resource}/register`, user);
+}
+export { loginUser, registerUser };
