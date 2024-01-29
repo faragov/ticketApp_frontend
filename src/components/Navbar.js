@@ -28,7 +28,7 @@ export default function Navbar() {
           </li>
           <li>
             <button type="button" onClick={handleLogout}>
-              Login
+              Logout
             </button>
           </li>
         </ul>

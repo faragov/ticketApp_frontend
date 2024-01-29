@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faLock, faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
-// eslint-disable-next-line
-import wretch from "wretch";
+import { Link, useNavigate } from "react-router-dom";
+import { registerUser } from "../services/AuthService";
+import Modal from "./Modal";
 
 // eslint-disable-next-line
 const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -22,6 +22,11 @@ export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [checkValidEmail, setCheckValidEmail] = useState(false);
   const [checkValidPassword, setCheckValidPassword] = useState(false);
+  const [statusMessage, setStatusMessage] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [countDown, setCountDown] = useState(3);
+
+  const navigate = useNavigate();
 
   function handleChange(e) {
     setUser({
@@ -54,34 +59,29 @@ export default function Register() {
     }
   }
 
-  // + Email logic connect to backend
-
   function validate() {
     if (!user.name || !user.email || !user.password) {
-      alert("Name, email, and password are required.");
       return false;
     }
     if (!checkValidEmail || !checkValidPassword) {
-      alert("Not correct email or password.");
       return false;
     }
     return true;
   }
 
   const handleSubmit = (e) => {
+    e.preventDefault();
     if (validate()) {
-      e.preventDefault();
-      try {
-        wretch("http://localhost:4000/users").post(
-          user.id,
-          user.name,
-          user.email,
-          user.password,
-        );
-        alert("Success!");
-      } catch (err) {
-        alert(err);
-      }
+      registerUser(user).json((json) => {
+        setStatusMessage(json.success);
+        setSuccess(true);
+        setInterval(() => {
+          setCountDown((c) => c - 1);
+        }, 1000);
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
+      });
     }
   };
 
@@ -159,14 +159,20 @@ export default function Register() {
         <button type="submit" onClick={handleSubmit}>
           Sign Up
         </button>
+
         {user.email && showEmailMessage()}
         {user.password && showPasswordMessage()}
       </form>
-      {/* Need to change to Login */}
       <p>Are you a member?</p>
       <p>
-        <Link to="./Landing">Log in</Link>
+        <Link to="/login" className="link">
+          Log in
+        </Link>
       </p>
+      <Modal isOpen={success} hasCloseBtn={false}>
+        <p>{statusMessage}</p>
+        <p>You will be redirected in {countDown} seconds!</p>
+      </Modal>
     </div>
   );
 }
