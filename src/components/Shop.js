@@ -5,9 +5,7 @@ import TicketsMap from "./TicketsMap";
 import Modal from "./Modal";
 
 export default function Shop() {
-  // !!!! delete the following comment if the setTicket is used !!!!
-  // eslint-disable-next-line no-unused-vars
-  const [tickets, setTickets] = useState(null);
+  const [tickets, setTickets] = useState([]);
   const [selectedTickets, setSelectedTickets] = useState({});
   const [statusMessage, setStatusMessage] = useState("");
   const [success, setSuccess] = useState(false);
@@ -16,26 +14,27 @@ export default function Shop() {
   useEffect(() => {
     wretch("http://localhost:4000/tickets")
       .get()
-      .json((json) => {
-        setTickets(json);
+      .json((tickets) => {
+        setTickets(tickets);
+        setSelectedTickets(selectedTickets);
       });
   }, []);
 
-  const handleBuyClick = (selectedTicket) => {
+  function handleBuyClick(selectedTicket) {
     setSelectedTickets((prevSelected) => ({
       ...prevSelected,
       [selectedTicket.id]: 1,
     }));
-  };
+  }
 
-  const handleAddClick = (ticketId) => {
+  function handleAddClick(ticketId) {
     setSelectedTickets((prevSelected) => ({
       ...prevSelected,
       [ticketId]: (prevSelected[ticketId] || 0) + 1,
     }));
-  };
+  }
 
-  const handleRemoveClick = (ticketId) => {
+  function handleRemoveClick(ticketId) {
     setSelectedTickets((prevSelected) => {
       const updatedCount = (prevSelected[ticketId] || 0) - 1;
       const newSelected = { ...prevSelected };
@@ -46,12 +45,11 @@ export default function Shop() {
       }
       return newSelected;
     });
-  };
+  }
 
-  const handleAddToCartClick = (ticket) => {
-
+  function handleAddToCartClick(ticket) {
     // API call add to cart
-    
+
     const cartItem = {
       id: ticket.id,
       name: ticket.name,
@@ -70,11 +68,11 @@ export default function Shop() {
     setTimeout(() => {
       setSuccess(false);
     }, 3000);
-  };
+  }
 
   return (
     <>
-      <TicketsMap tickets={tickets} />
+      <TicketsMap tickets={tickets}/>
       {tickets.map((ticket) => (
         <div key={ticket.id}>
           <button type="button" onClick={() => handleBuyClick(ticket)}>

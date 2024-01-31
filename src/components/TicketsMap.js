@@ -1,17 +1,20 @@
 import React from "react";
 import Ticket from "./Ticket";
 
-const TicketsMap = ({ tickets }) => {
-  <>
-    {tickets.map((ticket) => (
-      <Ticket
-        key={ticket.id}
-        type={ticket.name}
-        description={ticket.description}
-        usability={ticket.duration}
-        price={ticket.price}
-      />
-    ))}
-  </>;
-};
+function TicketsMap({ tickets }) {
+  return (
+    <>
+      {tickets.map((ticket) => (
+        <Ticket
+          key={ticket.id}
+          type={ticket.type}
+          description={ticket.description}
+          usability={ticket.usability}
+          price={ticket.price}
+        />
+      ))}
+    </>
+  );
+}
+
 export default TicketsMap;

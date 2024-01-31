@@ -7,7 +7,22 @@ export default function Ticket({ type, usability, price, description }) {
         <p>{price} Ft</p>
         <p>{usability}</p>
       </li>
-      <button type="button">Add to cart</button>
+
     </ul>
   );
 }
+
+/*
+export default function Ticket({ ticket }) {
+  return (
+    <div key={ticket.id}>
+      <div>
+        <p>{ticket.type}</p>
+        <p>{ticket.usability}</p>
+        <p>{ticket.price}</p>
+        <p>{ticket.description}</p>
+      </div>
+    </div>
+  );
+}
+*/

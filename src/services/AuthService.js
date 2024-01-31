@@ -9,6 +9,7 @@ function loginUser(user) {
 function registerUser(user) {
   return api.post(`${resource}/register`, user);
 }
+
 function finishCart(cartItems) {
   return api.post(`${resource}/cart`, cartItems);
 }

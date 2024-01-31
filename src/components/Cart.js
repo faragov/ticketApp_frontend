@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { json } from "react-router-dom";
 import { finishCart } from "../services/AuthService";
 
-const Cart = () => {
+export default function Cart() {
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
@@ -10,11 +9,14 @@ const Cart = () => {
     setCartItems(storedCart);
   }, []);
 
-  const handleFinishClick = () => {
-    finishCart(cartItems).json(json);
-    localStorage.setItem("cart", JSON.stringify([]));
-    setCartItems([]);
-  };
+  function handleFinishClick() {
+    finishCart(cartItems)
+      .then((response) => response.json())
+      .then(() => {
+        localStorage.setItem("cart", JSON.stringify([]));
+        setCartItems([]);
+      });
+  }
 
   return (
     <div>
@@ -37,11 +39,11 @@ const Cart = () => {
               0,
             )}
           </p>
-          <button onClick={handleFinishClick}>Finish</button>
+          <button type="button" onClick={handleFinishClick}>
+            Finish
+          </button>
         </div>
       )}
     </div>
   );
 };
-
-export default Cart;
