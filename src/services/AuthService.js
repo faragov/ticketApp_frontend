@@ -9,4 +9,7 @@ function loginUser(user) {
 function registerUser(user) {
   return api.post(`${resource}/register`, user);
 }
-export { loginUser, registerUser };
+function finishCart(cartItems) {
+  return api.post(`${resource}/cart`, cartItems);
+}
+export { loginUser, registerUser, finishCart };
