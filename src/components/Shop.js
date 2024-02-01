@@ -14,8 +14,8 @@ export default function Shop() {
   useEffect(() => {
     wretch("http://localhost:4000/tickets")
       .get()
-      .json((tickets) => {
-        setTickets(tickets);
+      .json((jsonData) => {
+        setTickets(jsonData);
         setSelectedTickets(selectedTickets);
       });
   }, []);
@@ -72,7 +72,7 @@ export default function Shop() {
 
   return (
     <>
-      <TicketsMap tickets={tickets}/>
+      <TicketsMap tickets={tickets} />
       {tickets.map((ticket) => (
         <div key={ticket.id}>
           <button type="button" onClick={() => handleBuyClick(ticket)}>
