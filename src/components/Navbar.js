@@ -10,6 +10,8 @@ export default function Navbar() {
     navigate("/");
   };
 
+  const userRole = localStorage.getItem("userRole");
+
   return (
     <div className="navbar">
       {token && (
@@ -20,6 +22,16 @@ export default function Navbar() {
           <li>
             <Link to="/profile">Profile</Link>
           </li>
+          {userRole === "ADMIN" && (
+            <>
+              <li>
+                <Link to="/admin/products">Admin Products</Link>
+              </li>
+              <li>
+                <Link to="/admin/news">Admin News</Link>
+              </li>
+            </>
+          )}
           <li>
             <Link to="/tickets">Tickets</Link>
           </li>
