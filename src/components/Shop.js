@@ -3,21 +3,24 @@ import wretch from "wretch";
 import { useState, useEffect } from "react";
 import TicketsMap from "./TicketsMap";
 import Modal from "./Modal";
+import { useShop } from "../context/ShopContext";
+import getAllTickets from "../services/ShopService";
+import { useAuth } from "../hooks/AuthContext";
 
 export default function Shop() {
-  const [tickets, setTickets] = useState([]);
+  // const [tickets, setTickets] = useState([]);
   const [selectedTickets, setSelectedTickets] = useState({});
   const [statusMessage, setStatusMessage] = useState("");
   const [success, setSuccess] = useState(false);
   const [countDown, setCountDown] = useState(3);
 
+  const { tickets, setTickets } = useShop();
+  const { token } = useAuth();
+
   useEffect(() => {
-    wretch("http://localhost:4000/tickets")
-      .get()
-      .json((jsonData) => {
-        setTickets(jsonData);
-        setSelectedTickets(selectedTickets);
-      });
+    getAllTickets(token).json((jsonData) => {
+      setTickets(jsonData.products);
+    });
   }, []);
 
   function handleBuyClick(selectedTicket) {
@@ -72,7 +75,7 @@ export default function Shop() {
 
   return (
     <>
-      <TicketsMap tickets={tickets} />
+      <TicketsMap tickets={tickets} parent="shop" />
       {tickets.map((ticket) => (
         <div key={ticket.id}>
           <button type="button" onClick={() => handleBuyClick(ticket)}>
