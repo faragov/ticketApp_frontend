@@ -1,31 +1,38 @@
 import React, { useState, useEffect } from "react";
-import { finishCart } from "../services/AuthService";
+import getAllTickets from "../services/ShopService";
+import postPurchase from "../services/CartService";
+import { useAuth } from "../hooks/AuthContext";
 
 export default function Cart() {
-  const [cartItems, setCartItems] = useState([]);
+  const [selectedTickets, setSelectedTickets] = useState({});
+
+  const { token } = useAuth();
 
   useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    setCartItems(storedCart);
+    getAllTickets(token).json((jsonData) => {
+      setSelectedTickets(jsonData.products);
+    });
   }, []);
 
   function handleFinishClick() {
-    finishCart(cartItems)
-      .then((response) => response.json())
-      .then(() => {
-        localStorage.setItem("cart", JSON.stringify([]));
-        setCartItems([]);
-      });
+     postPurchase(token).json((jsonData) => {
+      setSelectedTickets(jsonData.products);
+    });
+     // .then((response) => response.json())
+     // .then(() => {
+      // localStorage.setItem("cart", JSON.stringify([]));
+      // setCartItems([]);
+     // });
   }
 
   return (
     <div>
       <h2>Your Cart</h2>
-      {cartItems.length === 0 ? (
+      {selectedTickets.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
         <div>
-          {cartItems.map((item) => (
+          {selectedTickets.map((item) => (
             <div key={item.id}>
               <p>{item.name}</p>
               <p>Quantity: {item.quantity}</p>
@@ -34,7 +41,7 @@ export default function Cart() {
           ))}
           <p>
             Total:{" "}
-            {cartItems.reduce(
+            {selectedTickets.reduce(
               (total, item) => total + item.price * item.quantity,
               0,
             )}

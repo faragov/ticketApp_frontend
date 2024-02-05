@@ -1,11 +1,12 @@
 // eslint-disable-next-line
 import wretch from "wretch";
 import { useState, useEffect } from "react";
-import TicketsMap from "./TicketsMap";
 import Modal from "./Modal";
 import { useShop } from "../context/ShopContext";
 import getAllTickets from "../services/ShopService";
 import { useAuth } from "../hooks/AuthContext";
+import { add, remove, buy } from "lodash";
+import ShopContext from "../context/ShopContext";
 
 export default function Shop() {
   // const [tickets, setTickets] = useState([]);
@@ -23,79 +24,26 @@ export default function Shop() {
     });
   }, []);
 
-  function handleBuyClick(selectedTicket) {
-    setSelectedTickets((prevSelected) => ({
-      ...prevSelected,
-      [selectedTicket.id]: 1,
-    }));
-  }
-
-  function handleAddClick(ticketId) {
-    setSelectedTickets((prevSelected) => ({
-      ...prevSelected,
-      [ticketId]: (prevSelected[ticketId] || 0) + 1,
-    }));
-  }
-
-  function handleRemoveClick(ticketId) {
-    setSelectedTickets((prevSelected) => {
-      const updatedCount = (prevSelected[ticketId] || 0) - 1;
-      const newSelected = { ...prevSelected };
-      if (updatedCount > 0) {
-        newSelected[ticketId] = updatedCount;
-      } else {
-        delete newSelected[ticketId];
-      }
-      return newSelected;
-    });
-  }
-
-  function handleAddToCartClick(ticket) {
-    // API call add to cart
-
-    const cartItem = {
-      id: ticket.id,
-      name: ticket.name,
-      price: ticket.price,
-      quantity: selectedTickets[ticket.id] || 1,
-    };
-
-    const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
-    const updatedCart = [...existingCart, cartItem];
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-    setStatusMessage("Ticket added to your cart!");
-    setSuccess(true);
-    setInterval(() => {
-      setCountDown((c) => c - 1);
-    }, 1000);
-    setTimeout(() => {
-      setSuccess(false);
-    }, 3000);
-  }
-
   return (
-    <>
-      <TicketsMap tickets={tickets} parent="shop" />
-      {tickets.map((ticket) => (
-        <div key={ticket.id}>
-          <button type="button" onClick={() => handleBuyClick(ticket)}>
+    <ShopContext>
+          <button type="button" onClick={() => buy(selectedTickets)}>
             Buy
           </button>
-          {selectedTickets[ticket.id] && (
+          {selectedTickets && (
             <div>
-              {selectedTickets[ticket.id]}
-              <button type="button" onClick={() => handleAddClick(ticket.id)}>
+              {selectedTickets}
+              <button type="button" onClick={() => add}>
                 +
               </button>
               <button
                 type="button"
-                onClick={() => handleRemoveClick(ticket.id)}
+                onClick={() => remove}
               >
                 -
               </button>
               <button
                 type="button"
-                onClick={() => handleAddToCartClick(ticket)}
+                onClick={() => sendToCart}
               >
                 Add to Cart
               </button>
@@ -105,8 +53,6 @@ export default function Shop() {
             <p>{statusMessage}</p>
             <p>You will be redirected in {countDown} seconds!</p>
           </Modal>
-        </div>
-      ))}
-    </>
+        </ShopContext>
   );
 }

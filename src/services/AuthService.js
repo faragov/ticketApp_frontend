@@ -10,8 +10,4 @@ function registerUser(user) {
   return api.post(`${resource}/register`, user);
 }
 
-// remove this
-function finishCart(cartItems) {
-  return api.post(`${resource}/cart`, cartItems);
-}
-export { loginUser, registerUser, finishCart };
+export { loginUser, registerUser };
