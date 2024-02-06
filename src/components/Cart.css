@@ -1,0 +1,33 @@
+.cart-container {
+  width: 80vw;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.table-container {
+  width: 80%;
+}
+
+.item-table {
+  width: 100%;
+  border-collapse: collapse; /* Merge border spacing */
+}
+
+.item-row {
+  border-bottom: 1px solid #ccc; /* Add border between rows */
+}
+
+.item-cell {
+  padding: 10px; /* Add padding for better spacing */
+}
+
+#total-price-cell {
+  padding: 10px;
+}
+
+.item-cell p {
+  margin: 0; /* Remove default margin for paragraphs */
+}

@@ -9,4 +9,5 @@ function loginUser(user) {
 function registerUser(user) {
   return api.post(`${resource}/register`, user);
 }
+
 export { loginUser, registerUser };
