@@ -1,7 +1,17 @@
 import api from "../adapters/securedApi";
 
-const resource = "/purchases";
+const resource = "api/purchases";
 
-export default function postPurchase(token) {
-  return api.post(`${resource}`, token);
+function getPendingPurchases(token) {
+  return api.get(`${resource}`, token);
 }
+
+function postPurchase(token, body) {
+  return api.post(`${resource}`, token, body);
+}
+
+function updatePurchase(token, body) {
+  return api.put(`${resource}`, token, body);
+}
+
+export { getPendingPurchases, postPurchase, updatePurchase };

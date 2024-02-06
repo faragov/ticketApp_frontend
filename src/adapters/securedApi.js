@@ -8,6 +8,8 @@ const api = {
   get: (endpoint, token) => wretchApi(endpoint).auth(`Bearer ${token}`).get(),
   post: (endpoint, token, body) =>
     wretchApi(endpoint).auth(`Bearer ${token}`).post(body),
+  put: (endpoint, token, body) =>
+    wretchApi(endpoint).auth(`Bearer ${token}`).put(body),
 };
 
 export default api;

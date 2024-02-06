@@ -1,62 +1,93 @@
 import { createContext, useState, useMemo, useContext } from "react";
-// eslint-disable-next-line
-import wretch from "wretch";
-import postPurchase from "../services/CartService";
+import {
+  getPendingPurchases,
+  postPurchase,
+  updatePurchase,
+} from "../services/CartService";
 import { useAuth } from "../hooks/AuthContext";
+import getAllTickets from "../services/ShopService";
 
 const ShopContext = createContext();
 
 function ShopProvider({ children }) {
   const [tickets, setTickets] = useState([]);
   const [selectedTicketId, setSelectedTicketId] = useState(0);
-  // set the amount when the ticket is being selected
-const [amount, setAmount] = useState(1);
-const { token } = useAuth();
+  const [pendingPurchases, setPendingPurchases] = useState([]);
+  const { token } = useAuth();
 
-  const triggerEvent = (id) => {
-    console.log(`hello from shop: ${id}`);
-  };
+  const fetchTickets = () =>
+    getAllTickets(token).json((json) => setTickets(json.products));
 
-  const buy = () => {
-    setTickets((prevTickets) =>
-      prevTickets.map((ticket) =>
-        ticket.id === selectedTicketId
-          ? { ...ticket, quantity: (ticket.quantity || 0) + 1 }
-          : ticket
-      )
+  const getPurchaseIds = () =>
+    pendingPurchases.flatMap((purchase) => purchase.purchases);
+
+  const getCartMap = (purchases) =>
+    purchases.reduce((acc, curr) => {
+      const { id: purchaseId, ticket } = curr;
+      const { id: ticketId, name, price, type, duration } = ticket;
+
+      if (!acc[ticketId]) {
+        acc[ticketId] = [];
+      }
+
+      acc[ticketId].push({ purchaseId, name, price, type, duration });
+
+      return acc;
+    }, {});
+
+  const getCartItems = (cartMap) =>
+    Object.entries(cartMap).map(([ticketId, purchases]) => {
+      const totalPrice = purchases.reduce(
+        (total, { price }) => total + price,
+        0,
+      );
+      const amount = purchases.length;
+
+      const { name, type, duration } = purchases[0];
+
+      return {
+        ticketId,
+        name,
+        price: totalPrice / amount,
+        totalPrice,
+        amount,
+        type,
+        duration,
+        purchases: purchases.map(({ purchaseId }) => purchaseId),
+      };
+    });
+
+  const fetchPurchases = () =>
+    getPendingPurchases(token).json((json) =>
+      setPendingPurchases(getCartItems(getCartMap(json))),
+    );
+
+  const sendToCart = (id, amount) => {
+    postPurchase(token, { productID: id, amount }).json((json) =>
+      console.log(json),
     );
   };
 
-  const add = () => {
-    setAmount((prevAmount) => prevAmount + 1);
-  };
-
-  const remove = () => {
-    if (amount > 1) {
-      setAmount((prevAmount) => prevAmount - 1);
-    }
-  };
-
-  const sendToCart = () => {
-    postPurchase(token).json((jsonData) => {
-      setTickets(jsonData.products);
-    });
-    console.log(`send: ${selectedTicketId}`);
+  const buy = () => {
+    updatePurchase(token, {
+      status: "BOUGHT",
+      purchaseIds: getPurchaseIds(),
+    }).json(() => setPendingPurchases([]));
   };
 
   const value = useMemo(
     () => ({
       tickets,
-      triggerEvent,
+      pendingPurchases,
+      fetchTickets,
+      fetchPurchases,
       sendToCart,
       setSelectedTicketId,
       setTickets,
-      amount,
       buy,
-      add,
-      remove
+      setPendingPurchases,
     }),
-    [tickets, selectedTicketId, amount],
+    [tickets, pendingPurchases, selectedTicketId],
   );
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;
