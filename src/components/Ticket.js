@@ -31,29 +31,34 @@ export default function Ticket({ id, type, usability, price, description }) {
 
   return (
     <div className="ticket-card" onMouseLeave={() => setShowBuyField(false)}>
-      <p>{type}</p>
+      <h3>{type}</h3>
       <p>{description} </p>
       <p>{price} Ft</p>
       <p>{usability}</p>
-      <button
-        type="button"
-        onClick={() => {
-          handleSelect(id);
-          setShowBuyField(true);
-        }}
-      >
-        Buy
-      </button>
+      {!showBuyField && (
+        <button
+          className="buy-ticket"
+          type="button"
+          onClick={() => {
+            handleSelect(id);
+            setShowBuyField(true);
+          }}
+        >
+          Buy
+        </button>
+      )}
       {showBuyField && (
-        <div>
-          <button type="button" onClick={decreaseTicketAmount}>
-            -
-          </button>
-          {amount}
-          <button type="button" onClick={increaseTicketAmount}>
-            +
-          </button>
-          <button type="button" onClick={addToCart}>
+        <div className="buy-detail">
+          <div className="buy-detail-amount">
+            <button type="button" onClick={decreaseTicketAmount}>
+              -
+            </button>
+            <div className="amount-display">{amount}</div>
+            <button type="button" onClick={increaseTicketAmount}>
+              +
+            </button>
+          </div>
+          <button className="buy-add-to-cart" type="button" onClick={addToCart}>
             Add to Cart
           </button>
         </div>

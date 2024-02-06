@@ -8,7 +8,7 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useLocalStorage("token", null);
   const navigate = useNavigate();
 
-  const login = async (newToken) => {
+  const login = (newToken) => {
     setToken(newToken);
     navigate("/profile");
   };

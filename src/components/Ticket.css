@@ -1,7 +1,102 @@
 .ticket-card {
-  background-color: #f0f0f0;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.ticket-card:hover {
+  background-color: #e0e0e0;
+  transform: scale(1.05); /* Grow size on hover */
+}
+
+.ticket-card > h3,
+p {
+  margin: 5px 0;
+}
+
+.buy-ticket {
+  background-color: #dfbe02;
+  border: none;
+  color: white;
+  padding: 8px 30px;
   text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  outline: none; /* Remove default button outline */
+}
+
+.buy-ticket:hover {
+  background-color: #ddbd0b;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+  transform: translateY(-3px); /* Move button slightly up on hover */
+}
+
+.buy-ticket:active {
+  transform: translateY(1px); /* Move button slightly down on click */
+}
+
+.buy-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.buy-detail-amount {
+  display: flex;
+  align-items: center;
+}
+
+.buy-detail-amount button {
+  background-color: #ccc; /* Grey background */
+  color: #333; /* Darker text color */
+  border: none;
+  padding: 5px 10px;
+  font-size: 18px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease;
+  border-radius: 5px; /* Slightly round button corners */
+}
+
+.buy-detail-amount button:hover {
+  background-color: #bbb; /* Darker grey on hover */
+}
+
+.amount-display {
+  padding: 5px 10px; /* Add padding to the amount display */
+  border: 1px solid #333;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.buy-add-to-cart {
+  background-color: #ccc; /* Grey background */
+  color: #333; /* Darker text color */
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease;
+  border-radius: 5px; /* Slightly round button corners */
+}
+
+.buy-add-to-cart:hover {
+  background-color: #ddbd0b; /* Darker grey on hover */
 }
