@@ -9,6 +9,7 @@ import Shop from "./components/Shop";
 import Footer from "./components/Footer";
 import PageNotFound from "./components/PageNotFound";
 import Register from "./components/Register";
+import PurchasedTickets from "./components/PurchasedTickets";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
 function App() {
@@ -40,6 +41,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Shop />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/tickets"
+            element={
+              <ProtectedRoute>
+                <PurchasedTickets />
               </ProtectedRoute>
             }
           />

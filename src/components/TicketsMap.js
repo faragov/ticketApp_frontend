@@ -2,9 +2,9 @@ import React from "react";
 import Ticket from "./Ticket";
 import "./TicketMap.css";
 
-function TicketsMap({ tickets }) {
+function TicketsMap({ tickets, actionElement, parent }) {
   return (
-    <div className="ticket-grid">
+    <div className={parent === "purchased" ? "" : "ticket-grid"}>
       {tickets.map((ticket) => (
         <Ticket
           key={ticket.id}
@@ -13,6 +13,7 @@ function TicketsMap({ tickets }) {
           description={ticket.description}
           usability={ticket.usability}
           price={ticket.price}
+          actionElement={actionElement}
         />
       ))}
     </div>

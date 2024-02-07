@@ -1,6 +1,7 @@
 import { createContext, useState, useMemo, useContext } from "react";
 import {
   getPendingPurchases,
+  getPurchasedTickets,
   postPurchase,
   updatePurchase,
 } from "../services/CartService";
@@ -13,6 +14,7 @@ function ShopProvider({ children }) {
   const [tickets, setTickets] = useState([]);
   const [selectedTicketId, setSelectedTicketId] = useState(0);
   const [pendingPurchases, setPendingPurchases] = useState([]);
+  const [purchasedTickets, setPurchasedTickets] = useState([]);
   const { token } = useAuth();
 
   const fetchTickets = () =>
@@ -75,19 +77,41 @@ function ShopProvider({ children }) {
     }).json(() => setPendingPurchases([]));
   };
 
+  const fetchBoughtTickets = () => {
+    getPurchasedTickets(token, "bought").json((json) =>
+      setPurchasedTickets(json),
+    );
+  };
+
+  const fetchActiveTickets = () => {
+    getPurchasedTickets(token, "active").json((json) =>
+      setPurchasedTickets(json),
+    );
+  };
+
+  const fetchUsedTickets = () => {
+    getPurchasedTickets(token, "used").json((json) =>
+      setPurchasedTickets(json),
+    );
+  };
+
   const value = useMemo(
     () => ({
       tickets,
       pendingPurchases,
+      purchasedTickets,
       fetchTickets,
       fetchPurchases,
+      fetchBoughtTickets,
+      fetchActiveTickets,
+      fetchUsedTickets,
       sendToCart,
       setSelectedTicketId,
       setTickets,
       buy,
       setPendingPurchases,
     }),
-    [tickets, pendingPurchases, selectedTicketId],
+    [tickets, pendingPurchases, selectedTicketId, purchasedTickets],
   );
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;
