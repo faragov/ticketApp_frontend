@@ -1,5 +1,6 @@
 import { createContext, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import { useLocalStorage } from "./UseLocalStorage";
 
 const AuthContext = createContext();
@@ -10,7 +11,9 @@ export function AuthProvider({ children }) {
 
   const login = async (newToken) => {
     setToken(newToken);
-    navigate("/profile");
+    const decodedToken = jwtDecode(newToken);
+    const userRole = decodedToken.role;
+    navigate(userRole === "ADMIN" ? "/admin/profile" : "/profile");
   };
 
   const logout = () => {

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock, faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { Link, useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
+import { Link } from "react-router-dom";
+
 import { loginUser } from "../services/AuthService";
 import { useAuth } from "../hooks/AuthContext";
 
@@ -14,7 +14,6 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
   const { login } = useAuth();
-  const navigate = useNavigate();
 
   function handleChange(e) {
     setUser({
@@ -35,15 +34,7 @@ export default function Login() {
           // TODO: manage error
         })
         .json((json) => {
-          const decodedToken = jwtDecode(json.token);
-          const userRole = decodedToken.role;
-          localStorage.setItem("userRole", userRole);
           login(json.token);
-          if (userRole === "admin") {
-            navigate("/admin/profile");
-          } else {
-            navigate("/user/profile");
-          }
         });
     }
   }

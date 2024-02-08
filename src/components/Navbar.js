@@ -2,15 +2,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/AuthContext";
 
 export default function Navbar() {
-  const { token, logout } = useAuth();
+  const { token, userRole, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
     navigate("/");
   };
-
-  const userRole = localStorage.getItem("userRole");
 
   return (
     <div className="navbar">
@@ -22,16 +20,6 @@ export default function Navbar() {
           <li>
             <Link to="/profile">Profile</Link>
           </li>
-          {userRole === "ADMIN" && (
-            <>
-              <li>
-                <Link to="/admin/products">Admin Products</Link>
-              </li>
-              <li>
-                <Link to="/admin/news">Admin News</Link>
-              </li>
-            </>
-          )}
           <li>
             <Link to="/tickets">Tickets</Link>
           </li>
@@ -39,6 +27,20 @@ export default function Navbar() {
             <Link to="/cart">Cart</Link>
           </li>
           <li>
+            {userRole === "ADMIN" && (
+              <>
+                <li>
+                  <Link to="/admin/profile">Admin Profile</Link>
+                </li>
+                <li>
+                  <Link to="/admin/product">Admin Products</Link>
+                </li>
+                <li>
+                  <Link to="/admin/news">Admin News</Link>
+                </li>
+              </>
+            )}
+
             <button type="button" onClick={handleLogout}>
               Logout
             </button>
