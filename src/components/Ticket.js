@@ -1,13 +1,23 @@
-export default function Ticket({ type, usability, price, description }) {
+import React, { useState } from "react";
+import "./Ticket.css";
+
+export default function Ticket({
+  id,
+  type,
+  usability,
+  price,
+  description,
+  actionElement,
+}) {
+  const [showField, setShowField] = useState(false);
+
   return (
-    <ul className="ticket-description">
-      <li>
-        <p>{type}</p>
-        <p>{description} </p>
-        <p>{price} Ft</p>
-        <p>{usability}</p>
-      </li>
-      <button type="button">Add to cart</button>
-    </ul>
+    <div className="ticket-card" onMouseLeave={() => setShowField(false)}>
+      <h3>{type}</h3>
+      <p>{description} </p>
+      <p>{price} Ft</p>
+      <p>{usability}</p>
+      {React.cloneElement(actionElement, { id, showField, setShowField })}
+    </div>
   );
 }

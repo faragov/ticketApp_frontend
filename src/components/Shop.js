@@ -1,39 +1,78 @@
-// eslint-disable-next-line
-import wretch from "wretch";
-import { useState, useEffect } from "react";
-import Ticket from "./Ticket";
+import { useEffect, useState } from "react";
+import TicketsMap from "./TicketsMap";
+import { useShop } from "../context/ShopContext";
 
-export default function Shop() {
-  // !!!! delete the following comment if the setTicket is used !!!!
-  // eslint-disable-next-line no-unused-vars
-  const [tickets, setTickets] = useState(null);
+function BuyDetail({ id, showField, setShowField }) {
+  const { setSelectedTicketId, sendToCart } = useShop();
 
-  useEffect(() => {
-    wretch("http://localhost:4000/tickets")
-      .get()
-      .json((json) => {
-        setTickets(json);
-      });
-  }, []);
+  const [amount, setAmount] = useState(1);
 
-  const ticketMap = tickets
-    ? tickets.map((ticket) => (
-        <Ticket
-          key={ticket.id}
-          type={ticket.name}
-          description={ticket.description}
-          usability={ticket.duration}
-          price={ticket.price}
-        />
-      ))
-    : null;
+  function handleSelect(selectedId) {
+    setSelectedTicketId(selectedId);
+  }
+
+  const increaseTicketAmount = () => {
+    if (amount < 10) {
+      setAmount(amount + 1);
+    }
+  };
+
+  const decreaseTicketAmount = () => {
+    if (amount > 1) {
+      setAmount(amount - 1);
+    }
+  };
+
+  const addToCart = () => {
+    sendToCart(id, amount);
+    setAmount(1);
+  };
 
   return (
     <>
-      <header>Ticket & passes</header>
-      <button type="button">Tickets</button>
-      <button type="button">Passes</button>
-      <div>{ticketMap}</div>
+      {!showField && (
+        <button
+          className="buy-ticket"
+          type="button"
+          onClick={() => {
+            handleSelect(id);
+            setShowField(true);
+          }}
+        >
+          Buy
+        </button>
+      )}
+      {showField && (
+        <div className="buy-detail">
+          <div className="buy-detail-amount">
+            <button type="button" onClick={decreaseTicketAmount}>
+              -
+            </button>
+            <div className="amount-display">{amount}</div>
+            <button type="button" onClick={increaseTicketAmount}>
+              +
+            </button>
+          </div>
+          <button className="buy-add-to-cart" type="button" onClick={addToCart}>
+            Add to Cart
+          </button>
+        </div>
+      )}
+    </>
+  );
+}
+
+export default function Shop() {
+  const { tickets, fetchTickets } = useShop();
+
+  useEffect(() => {
+    fetchTickets();
+  }, []);
+
+  return (
+    <>
+      <h1>Tickets</h1>
+      <TicketsMap tickets={tickets} actionElement={<BuyDetail />} />
     </>
   );
 }

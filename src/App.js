@@ -17,7 +17,7 @@ import Ticket from "./components/Ticket";
 
 function App() {
   return (
-    <div>
+    <>
       <Header />
       <Routes>
         {/* public routes */}
@@ -42,7 +42,7 @@ function App() {
         </Route>
       </Routes>
       <Footer />
-    </div>
+    </>
   );
 }
 

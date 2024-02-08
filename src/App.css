@@ -55,3 +55,8 @@
 .valid-text {
   color: green;
 }
+
+.main-content {
+  min-height: 70vh;
+  padding: 20px;
+}

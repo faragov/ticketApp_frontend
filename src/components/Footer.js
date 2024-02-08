@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import facebookIcon from "../facebook-svgrepo-com.svg";
 import twitterIcon from "../twitter-svgrepo-com.svg";
 import linkedinIcon from "../linkedin-svgrepo-com.svg";
+import "./Footer.css";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -9,7 +10,7 @@ export default function Footer() {
   return (
     <footer className="footer">
       <p>{`©${year} FoxTicket`}</p>
-      <div className="navbar">
+      <div className="footer-nav">
         <ul>
           <li>
             <Link to="/terms">Terms</Link>
