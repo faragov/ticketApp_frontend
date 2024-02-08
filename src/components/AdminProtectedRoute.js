@@ -6,7 +6,7 @@ export default function AdminProtectedRoute() {
   const { token, role } = useAuth();
 
   if (!token && role !== "ADMIN") {
-    return <Navigate ti="/" />;
+    return <Navigate to="/" />;
   }
 
   return <Outlet />;
